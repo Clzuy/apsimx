@@ -634,7 +634,7 @@ log_lik <- function(.cfs){
                     silent = TRUE, cleanup = TRUE, value = "report"),
              silent = TRUE)
   sim$Clock.Today <- as.Date(sim$Clock.Today)
-  # 假设你要将 sim 数据框的 Clock.Today 列名改为 Today
+  
   colnames(sim)[which(colnames(sim) == "Clock.Today")] <- "Date"
   if(inherits(sim, "try-error")) return(NA)
 
@@ -646,9 +646,10 @@ log_lik <- function(.cfs){
   if(length(.index) == 1){
 
     sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
+    print(sim.s)
     sim.s <- sim.s[order(sim.s[, .index]),]
     .data <- .data[order(.data[, .index]),]
-
+    
     if(!all(sim.s[[.index]] == .data[[.index]]))
       stop(paste("simulations and data for", .index, "do not match"))
 
