@@ -633,7 +633,7 @@ log_lik <- function(.cfs){
   sim <- try(apsimx(file = .file, src.dir = .src.dir,
                     silent = TRUE, cleanup = TRUE, value = "report"),
              silent = TRUE)
-
+  sim$Clock.Today <- as.Date(sim$Clock.Today)
   if(inherits(sim, "try-error")) return(NA)
 
   ## Only keep those columns with corresponding names in the data
