@@ -644,14 +644,11 @@ log_lik <- function(.cfs){
     stop("names in 'data' do not match names in simulation")
 
   if(length(.index) == 1){
-    sim[[.index]] <- as.Date(sim[[.index]])  # 确保格式一致
-    .data[[.index]] <- as.Date(.data[[.index]])  # 确保格式一致
-    sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
+    matched_indices <- match(sim0[, "Date"], obsSugar[,"Date"])
+    sim.s <- sim0[!is.na(matched_indices), names(obsSugar)]
+    #sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
     print(sim.s)
     print(.index)
-    print(class(sim$Date))
-    print(class(.data$Date))
-    
     print(sim[, .index, drop = FALSE])  
 # 打印 .data 中 .index 列的内容
     print(.data[[.index]])  
@@ -688,8 +685,8 @@ log_lik <- function(.cfs){
     cat("number of rows in data", nrow(.data), "\n")
     print(sim[[.index]])  
     print(.data[[.index]]) 
-    #print(sim)
-    #print(.data)
+    print(sim)
+    print(.data)
     stop("no rows selected in simulations")
   }
   ## Assuming they are aligned, get rid of the 'Date' column
