@@ -648,8 +648,8 @@ log_lik <- function(.cfs){
     sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
     print(sim.s)
     print(.index)
-    class(sim$Date)
-    class(.data$Date)
+    print(class(sim$Date))
+    print(class(.data$Date))
     
     print(sim[, .index, drop = FALSE])  
 # 打印 .data 中 .index 列的内容
