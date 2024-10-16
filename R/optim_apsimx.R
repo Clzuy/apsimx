@@ -644,7 +644,8 @@ log_lik <- function(.cfs){
     stop("names in 'data' do not match names in simulation")
 
   if(length(.index) == 1){
-
+    sim[[.index]] <- as.Date(sim[[.index]])  # 确保格式一致
+    .data[[.index]] <- as.Date(.data[[.index]])  # 确保格式一致
     sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
     print(sim.s)
     print(.index)
@@ -654,11 +655,8 @@ log_lik <- function(.cfs){
     print(sim[, .index, drop = FALSE])  
 # 打印 .data 中 .index 列的内容
     print(.data[[.index]])  
-    identical(sim[[.index]], .data[[.index]])
-    intersect(sim[[.index]], .data[[.index]])
-    sim[[.index]] <- as.Date(sim[[.index]])  # 确保格式一致
-    .data[[.index]] <- as.Date(.data[[.index]])  # 确保格式一致
-
+    print(identical(sim[[.index]], .data[[.index]]))
+    print(intersect(sim[[.index]], .data[[.index]]))
     sim.s <- sim.s[order(sim.s[, .index]),]
     .data <- .data[order(.data[, .index]),]
     
