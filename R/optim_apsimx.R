@@ -634,6 +634,8 @@ log_lik <- function(.cfs){
                     silent = TRUE, cleanup = TRUE, value = "report"),
              silent = TRUE)
   sim$Clock.Today <- as.Date(sim$Clock.Today)
+  # 假设你要将 sim 数据框的 Clock.Today 列名改为 Today
+  colnames(sim)[which(colnames(sim) == "Clock.Today")] <- "Date"
   if(inherits(sim, "try-error")) return(NA)
 
   ## Only keep those columns with corresponding names in the data
