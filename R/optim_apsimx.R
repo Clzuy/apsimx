@@ -657,7 +657,10 @@ log_lik <- function(.cfs){
     if(!is.null(.data$report)) .data$report <- as.factor(.data$report)
     if(!is.null(sim$report)) sim$report <- as.factor(sim$report)
     sim.s0 <- merge(sim, subset(.data, select = .index), by = .index)
+ 
+    print(sim.s0)
     sim.s <- subset(sim.s0, select = names(.data))
+    print(sim.s)
     ## However, they need to be in the exact same order
     sim.s <- sim.s[order(sim.s[, .index[1]], sim.s[ ,.index[2]]),]
     .data <- .data[order(.data[, .index[1]], .data[, .index[2]]),]
@@ -672,6 +675,8 @@ log_lik <- function(.cfs){
   if(nrow(sim.s) == 0L){
     cat("number of rows in sim", nrow(sim),"\n")
     cat("number of rows in data", nrow(.data), "\n")
+    print(sim[[.index]])  
+    print(.data[[.index]]) 
     print(sim)
     print(.data)
     stop("no rows selected in simulations")
