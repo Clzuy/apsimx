@@ -647,13 +647,13 @@ log_lik <- function(.cfs){
     matched_indices <- match(sim0[, "Date"], obsSugar[,"Date"])
     sim.s <- sim0[!is.na(matched_indices), names(obsSugar)]
     #sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
-    print(sim.s)
-    print(.index)
-    print(sim[, .index, drop = FALSE])  
+    #print(sim.s)
+    #print(.index)
+    #print(sim[, .index, drop = FALSE])  
 # 打印 .data 中 .index 列的内容
-    print(.data[[.index]])  
-    print(identical(sim[[.index]], .data[[.index]]))
-    print(intersect(sim[[.index]], .data[[.index]]))
+    #print(.data[[.index]])  
+    #print(identical(sim[[.index]], .data[[.index]]))
+    #print(intersect(sim[[.index]], .data[[.index]]))
     sim.s <- sim.s[order(sim.s[, .index]),]
     .data <- .data[order(.data[, .index]),]
     
