@@ -647,11 +647,14 @@ log_lik <- function(.cfs){
 
     sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
     print(sim.s)
-    print(.index)  # 打印 .index
-    # 打印 sim 中 .index 列的内容
+    print(.index)
+    class(sim$Date)
+    class(.data$Date)
+    
     print(sim[, .index, drop = FALSE])  
 # 打印 .data 中 .index 列的内容
     print(.data[[.index]])  
+    
     sim.s <- sim.s[order(sim.s[, .index]),]
     .data <- .data[order(.data[, .index]),]
     
@@ -663,7 +666,7 @@ log_lik <- function(.cfs){
     if(!is.null(.data$report)) .data$report <- as.factor(.data$report)
     if(!is.null(sim$report)) sim$report <- as.factor(sim$report)
     sim.s0 <- merge(sim, subset(.data, select = .index), by = .index)
- 
+    #else这一块不运行
     print(sim.s0)
     sim.s <- subset(sim.s0, select = names(.data))
     print(sim.s)
@@ -683,8 +686,8 @@ log_lik <- function(.cfs){
     cat("number of rows in data", nrow(.data), "\n")
     print(sim[[.index]])  
     print(.data[[.index]]) 
-    print(sim)
-    print(.data)
+    #print(sim)
+    #print(.data)
     stop("no rows selected in simulations")
   }
   ## Assuming they are aligned, get rid of the 'Date' column
