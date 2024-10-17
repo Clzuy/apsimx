@@ -642,12 +642,10 @@ log_lik <- function(.cfs){
   sim <- try(apsimx(file = .file, src.dir = .src.dir,
                     silent = TRUE, cleanup = TRUE, value = "report"),
              silent = TRUE)
-  print(.file)
-  print(.src.dir)
-  print(sim)
-  sim$Clock.Today <- as.Date(sim$Clock.Today)
+  #print(sim)
+  #sim$Clock.Today <- as.Date(sim$Clock.Today)
   
-  colnames(sim)[which(colnames(sim) == "Clock.Today")] <- "Date"
+  #colnames(sim)[which(colnames(sim) == "Clock.Today")] <- "Date"
   if(inherits(sim, "try-error")) return(NA)
 
   ## Only keep those columns with corresponding names in the data
@@ -659,6 +657,7 @@ log_lik <- function(.cfs){
     print(sim)
     matched_indices <- match(sim[, "Date"], obsSugar[,"Date"])
     sim.s <- sim[!is.na(matched_indices), names(obsSugar)]
+    print(sim.s)
     #sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
     #print(sim.s)
     #print(.index)
