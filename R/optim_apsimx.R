@@ -713,6 +713,7 @@ log_lik <- function(.cfs){
     return(sum(lls))
   }else{
     print(diffs)
+    print(.cfs[(length(.iparms) + 1):length(.cfs)])
     Sigma <- diag(.cfs[(length(.iparms) + 1):length(.cfs)])
     print(lls)
     lls <- mvtnorm::dmvnorm(diffs, sigma = Sigma, log = TRUE)
