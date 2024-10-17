@@ -653,8 +653,10 @@ log_lik <- function(.cfs){
     stop("names in 'data' do not match names in simulation")
 
   if(length(.index) == 1){
-    matched_indices <- match(sim0[, "Date"], obsSugar[,"Date"])
-    sim.s <- sim0[!is.na(matched_indices), names(obsSugar)]
+    print(sim0)
+    print(sim)
+    matched_indices <- match(sim[, "Date"], obsSugar[,"Date"])
+    sim.s <- sim[!is.na(matched_indices), names(obsSugar)]
     #sim.s <- subset(sim, sim[,.index, drop = FALSE] %in% .data[[.index]], select = names(.data))
     #print(sim.s)
     #print(.index)
