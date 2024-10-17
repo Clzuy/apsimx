@@ -642,6 +642,9 @@ log_lik <- function(.cfs){
   sim <- try(apsimx(file = .file, src.dir = .src.dir,
                     silent = TRUE, cleanup = TRUE, value = "report"),
              silent = TRUE)
+  print(.file)
+  print(.src.dir)
+  print(sim)
   sim$Clock.Today <- as.Date(sim$Clock.Today)
   
   colnames(sim)[which(colnames(sim) == "Clock.Today")] <- "Date"
@@ -653,7 +656,6 @@ log_lik <- function(.cfs){
     stop("names in 'data' do not match names in simulation")
 
   if(length(.index) == 1){
-    print(sim0)
     print(sim)
     matched_indices <- match(sim[, "Date"], obsSugar[,"Date"])
     sim.s <- sim[!is.na(matched_indices), names(obsSugar)]
