@@ -595,15 +595,24 @@ log_lik <- function(.cfs){
   .root <- get('.root', envir = mcmc.apsimx.env)
 
   ## Need to edit the parameters in the simulation file or replacement
-  for(i in 1:length(.iparms)){
-    ## Edit the specific parameters with the corresponding values
-    if(.parm.vector.index[i] <= 0){
-      par.val <- .iparms[[i]] * .cfs[i]
-    }else{
-      pvi <- .parm.vector.index[i]
-      .iparms[[i]][pvi] <- .iparms[[i]][pvi] * .cfs[i]
-      par.val <- .iparms[[i]]
-    }
+  for(i in 1:length(.iparms)) {
+      
+      if (parm.vector.index[i] <= 0) {
+        # 标量情况
+        par.val <- iparms[[i]] * cfs[i]
+      } else {
+        # 向量情况
+        pvi <- parm.vector.index[i]
+        iparms[[i]][pvi] <- iparms[[i]][pvi] * cfs[i]
+        par.val <- iparms[[i]]
+        
+        # 检查par.val是否是向量
+        if (length(par.val) > 1) {
+          # 将向量拼接成一个字符串
+          par.val <- paste(par.val, collapse = ",")
+          print(par.val)
+        }
+      }
 
     if(.replacement[i]){
       pp0 <- strsplit(.parm.paths[i], ".", fixed = TRUE)[[1]]
