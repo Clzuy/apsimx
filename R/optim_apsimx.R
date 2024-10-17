@@ -597,14 +597,14 @@ log_lik <- function(.cfs){
   ## Need to edit the parameters in the simulation file or replacement
   for(i in 1:length(.iparms)) {
       
-      if (parm.vector.index[i] <= 0) {
+      if (.parm.vector.index[i] <= 0) {
         # 标量情况
-        par.val <- iparms[[i]] * cfs[i]
+        par.val <- .iparms[[i]] * .cfs[i]
       } else {
         # 向量情况
-        pvi <- parm.vector.index[i]
-        iparms[[i]][pvi] <- iparms[[i]][pvi] * cfs[i]
-        par.val <- iparms[[i]]
+        pvi <- .parm.vector.index[i]
+        .iparms[[i]][pvi] <- .iparms[[i]][pvi] * cfs[i]
+        par.val <- .iparms[[i]]
         
         # 检查par.val是否是向量
         if (length(par.val) > 1) {
