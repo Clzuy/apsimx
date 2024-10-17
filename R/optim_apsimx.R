@@ -603,7 +603,7 @@ log_lik <- function(.cfs){
       } else {
         # 向量情况
         pvi <- .parm.vector.index[i]
-        .iparms[[i]][pvi] <- .iparms[[i]][pvi] * cfs[i]
+        .iparms[[i]][pvi] <- .iparms[[i]][pvi] * .cfs[i]
         par.val <- .iparms[[i]]
         
         # 检查par.val是否是向量
