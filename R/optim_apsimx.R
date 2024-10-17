@@ -655,7 +655,7 @@ log_lik <- function(.cfs){
 
   if(length(.index) == 1){
     #print(sim)
-    write.csv(sim, file = "sim_s_data.csv", row.names = FALSE)
+  
     matched_indices <- match(sim[, "Date"], obsSugar[,"Date"])
     sim.s <- sim[!is.na(matched_indices), names(obsSugar)]
     #print(sim.s)
