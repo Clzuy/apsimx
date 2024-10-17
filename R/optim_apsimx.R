@@ -610,7 +610,7 @@ log_lik <- function(.cfs){
         if (length(par.val) > 1) {
           # 将向量拼接成一个字符串
           par.val <- paste(par.val, collapse = ",")
-          print(par.val)
+          #print(par.val)
         }
       }
 
@@ -670,7 +670,7 @@ log_lik <- function(.cfs){
       stop(paste("simulations and data for", .index, "do not match"))
 
   }else{
-
+    print("go else times")
     if(!is.null(.data$report)) .data$report <- as.factor(.data$report)
     if(!is.null(sim$report)) sim$report <- as.factor(sim$report)
     sim.s0 <- merge(sim, subset(.data, select = .index), by = .index)
@@ -692,8 +692,8 @@ log_lik <- function(.cfs){
   if(nrow(sim.s) == 0L){
     cat("number of rows in sim", nrow(sim),"\n")
     cat("number of rows in data", nrow(.data), "\n")
-    print(sim[[.index]])  
-    print(.data[[.index]]) 
+    #print(sim[[.index]])  
+    #print(.data[[.index]]) 
     print(sim)
     print(.data)
     stop("no rows selected in simulations")
