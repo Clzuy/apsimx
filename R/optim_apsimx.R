@@ -582,7 +582,7 @@ optim_apsimx <- function(file, src.dir = ".",
 
 
 ## Log-likelihood
-log_lik <- function(.cfs,.cfsds){
+log_lik <- function(.cfs){
 
   .file <- get('.file', envir = mcmc.apsimx.env)
   .src.dir <- get('.src.dir', envir = mcmc.apsimx.env)
@@ -713,7 +713,8 @@ log_lik <- function(.cfs,.cfsds){
     return(sum(lls))
   }else{
     print(diffs)
-    Sigma <- diag(.cfsds[1:length(.cfsds)])
+    print(.cfs)
+    Sigma <- diag(tail(.cfs, 3))
     print(Sigma)
     lls <- mvtnorm::dmvnorm(diffs, sigma = Sigma, log = TRUE)
     print(lls)
