@@ -705,9 +705,14 @@ log_lik <- function(.cfs){
     print(diffs)
     #Sigma <- diag(.cfs[(length(.iparms) + 1):length(.cfs)])
     #Sigma <- diag(c(300, 40, 1.65))
-    Sigma <- diag(c(300, 40, 90, 1.65))
+    Sigma <- diag(c(300, 40, 1.65))
     #print(Sigma)
-    lls <- mvtnorm::dmvnorm(diffs, sigma = Sigma, log = TRUE)
+    diffs_sub <- diffs[, 1:3]
+    lls11 <- mvtnorm::dmvnorm(diffs_sub, sigma = Sigma, log = TRUE)
+    last_column <- diffs[, ncol(diffs)]
+    lls12 <- stats::dnorm(last_column, sd = 90, log = TRUE)
+    #lls1 <- sum(lls11)
+    lls <- lls11 + lls12
     #print(lls)
     return(sum(lls))
   }
