@@ -709,10 +709,12 @@ log_lik <- function(.cfs){
     #print(Sigma)
     diffs_sub <- diffs[, 1:3]
     lls11 <- mvtnorm::dmvnorm(diffs_sub, sigma = Sigma, log = TRUE)
-    last_column <- diffs[, ncol(diffs)]
-    lls12 <- stats::dnorm(last_column, sd = 90, log = TRUE)
-    #lls1 <- sum(lls11)
-    lls <- lls11 + lls12
+    # 假设 diffs 是你计算后的矩阵
+    last_row_index <- nrow(diffs)  # 获取最后一行的索引
+    last_value <- diffs[last_row_index, ncol(diffs)]
+    print(last_value)
+    lls12 <- stats::dnorm(last_value, sd = 90, log = TRUE)
+    lls = c(lls11, lls12)
     #print(lls)
     return(sum(lls))
   }
