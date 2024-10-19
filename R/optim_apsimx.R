@@ -473,11 +473,9 @@ optim_apsimx <- function(file, src.dir = ".",
                                         }
                                         return(lrss)
                                       })
-
       lrss.vec <- do.call(c, lrss.vec)
       parallel::stopCluster(cl)
     }
-
     ## It looks like I still need to clean up when running parallel
     if(cores > 1){
       for(i in seq_len(nrow(grid))){
@@ -488,7 +486,6 @@ optim_apsimx <- function(file, src.dir = ".",
         }
       }
     }
-
     ## Run the model one more time with the best result
     ans.grid <- cbind(grid, lrss = unlist(lrss.vec))
     if(verbose){
@@ -509,14 +506,12 @@ optim_apsimx <- function(file, src.dir = ".",
                     parm.vector.index = parm.vector.index,
                     replacement = replacement,
                     root = root)
-
     op <- list(par = op.par,
                value = min(ans.grid$lrss),
                counts = nrow(grid),
                convergence = NA,
                message = "grid")
   }
-
   if(type == "mcmc"){
     ## Setting defaults
     datami.sds <- apply(datami, 2, sd)
@@ -526,10 +521,7 @@ optim_apsimx <- function(file, src.dir = ".",
     if(is.null(mcmc.args$sampler)) sampler <- "DEzs"
     if(is.null(mcmc.args$parallel)) mcmc.args$parallel <- FALSE
     if(is.null(mcmc.args$settings)) stop("runMCMC settings are missing with no default")
-
-
     cfs <- c(rep(1, length(iparms)), apply(datami, 2, sd))
-
     ## Create environment with objects
     assign('.file', file, mcmc.apsimx.env)
     assign('.src.dir', src.dir, mcmc.apsimx.env)
@@ -579,8 +571,6 @@ optim_apsimx <- function(file, src.dir = ".",
 
   return(ans)
 }
-
-
 ## Log-likelihood
 log_lik <- function(.cfs){
 
@@ -714,14 +704,14 @@ log_lik <- function(.cfs){
   }else{
     print(diffs)
     #Sigma <- diag(.cfs[(length(.iparms) + 1):length(.cfs)])
-    Sigma <- diag(c(300, 40, 1.65))
+    #Sigma <- diag(c(300, 40, 1.65))
+    Sigma <- diag(c(300, 40, 90, 1.65))
     #print(Sigma)
     lls <- mvtnorm::dmvnorm(diffs, sigma = Sigma, log = TRUE)
     #print(lls)
     return(sum(lls))
   }
 }
-
 ## Create an environment to solve this problem?
 #' Create an apsimx environment for MCMC
 #'
