@@ -702,7 +702,7 @@ log_lik <- function(.cfs){
     lls <- stats::dnorm(diffs[,1], sd = .cfs[length(.cfs)], log = TRUE)
     return(sum(lls))
   }else{
-    print(diffs)
+    #print(diffs)
     #Sigma <- diag(.cfs[(length(.iparms) + 1):length(.cfs)])
     #Sigma <- diag(c(300, 40, 1.65))
     Sigma <- diag(c(300, 40, 1.65))
@@ -712,7 +712,7 @@ log_lik <- function(.cfs){
     # 假设 diffs 是你计算后的矩阵
     last_row_index <- nrow(diffs)  # 获取最后一行的索引
     last_value <- diffs[last_row_index, ncol(diffs)]
-    print(last_value)
+    #print(last_value)
     lls12 <- stats::dnorm(last_value, sd = 90, log = TRUE)
     lls = c(lls11, lls12)
     #print(lls)
