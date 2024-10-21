@@ -702,7 +702,7 @@ log_lik <- function(.cfs){
     lls <- stats::dnorm(diffs[,1], sd = .cfs[length(.cfs)], log = TRUE)
     return(sum(lls))
   }else{
-    
+  lls11 <- 0
 # 确保 diffs 已经定义并包含数据
 # 提取前三列作为子集
   diffs_sub <- diffs[, 1:3]
@@ -711,32 +711,37 @@ log_lik <- function(.cfs){
   error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
   error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
   error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.52, 0.4, 0.4)
+  Sigma_col1 <- diag(error_col1^2)
+  Sigma_col2 <- diag(error_col2^2)
+  Sigma_col3 <- diag(error_col3^2)
+  col1_data <- diffs_sub[, 1]
+  col2_data <- diffs_sub[, 2]
+  col3_data <- diffs_sub[, 3]
   #error_col1 <- c(300, 300, 300, 300, 300, 300, 300)
   #error_col2 <- c(40, 40, 40, 40, 40, 40, 40)
   #error_col3 <- c(1.65, 1.65, 1.65, 1.65, 1.65, 1.65, 1.65)
-# 初始化对数似然
-  lls11 <- 0
+
+  ll_col1 <- dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
+  ll_col2 <- dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
+  ll_col3 <- dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
+  lls11 <- sum(ll_col1, ll_col2, ll_col3)
 
 # 逐行计算对数似然
-  for (i in 1:nrow(diffs_sub)) {
+  #for (i in 1:nrow(diffs_sub)) {
   # 提取每行的数据
-    data_point <- diffs_sub[i, ]
+    #data_point <- diffs_sub[i, ]
   # 创建协方差矩阵，假设误差是独立的
-    Sigma <- diag(c(error_col1[i], error_col2[i], error_col3[i]))
+    #Sigma <- diag(c(error_col1[i], error_col2[i], error_col3[i]))
   
   # 计算对数似然
-    lls11 <- lls11 +
-      mvtnorm::dmvnorm(data_point, sigma = Sigma, log = TRUE)
-}
+    #lls11 <- lls11 +
+      #mvtnorm::dmvnorm(data_point, sigma = Sigma, log = TRUE)
+#}
 
 # 获取最后一行最后一列的值
   last_row_index <- nrow(diffs)
   last_value <- diffs[last_row_index, ncol(diffs)]
-
-# 计算 lls12
   lls12 <- stats::dnorm(last_value, sd = 90, log = TRUE)
-
-# 合并对数似然值并求和
   lls <- c(lls11, lls12)
   total_log_likelihood <- sum(lls)
 
@@ -759,8 +764,6 @@ log_lik <- function(.cfs){
     #print(lls)
     #
     #library(mvtnorm)
-
-   
   }
 }
 ## Create an environment to solve this problem?
