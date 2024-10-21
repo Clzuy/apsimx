@@ -721,9 +721,9 @@ log_lik <- function(.cfs){
   #error_col2 <- c(40, 40, 40, 40, 40, 40, 40)
   #error_col3 <- c(1.65, 1.65, 1.65, 1.65, 1.65, 1.65, 1.65)
 
-  ll_col1 <- dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
-  ll_col2 <- dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
-  ll_col3 <- dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
+  ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
+  ll_col2 <- mvtnorm::dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
+  ll_col3 <- mvtnorm::dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
   lls11 <- sum(ll_col1, ll_col2, ll_col3)
 
 # 逐行计算对数似然
