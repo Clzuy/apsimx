@@ -703,67 +703,31 @@ log_lik <- function(.cfs){
     return(sum(lls))
   }else{
   lls11 <- 0
-# 确保 diffs 已经定义并包含数据
-# 提取前三列作为子集
-  diffs_sub <- diffs[, 1:3]
-
-# 定义每列的观测误差
-  error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
-  error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
-  error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.52, 0.4, 0.4)
-  Sigma_col1 <- diag(error_col1^2)
-  Sigma_col2 <- diag(error_col2^2)
-  Sigma_col3 <- diag(error_col3^2)
-  col1_data <- diffs_sub[, 1]
-  col2_data <- diffs_sub[, 2]
-  col3_data <- diffs_sub[, 3]
-  #error_col1 <- c(300, 300, 300, 300, 300, 300, 300)
-  #error_col2 <- c(40, 40, 40, 40, 40, 40, 40)
-  #error_col3 <- c(1.65, 1.65, 1.65, 1.65, 1.65, 1.65, 1.65)
-
-  ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
-  ll_col2 <- mvtnorm::dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
-  ll_col3 <- mvtnorm::dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
-  lls11 <- sum(ll_col1, ll_col2, ll_col3)
-
-# 逐行计算对数似然
-  #for (i in 1:nrow(diffs_sub)) {
-  # 提取每行的数据
-    #data_point <- diffs_sub[i, ]
-  # 创建协方差矩阵，假设误差是独立的
-    #Sigma <- diag(c(error_col1[i], error_col2[i], error_col3[i]))
-  
-  # 计算对数似然
-    #lls11 <- lls11 +
-      #mvtnorm::dmvnorm(data_point, sigma = Sigma, log = TRUE)
-#}
-
+  #diffs_sub <- diffs[, 1:3]
+ # error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
+  #error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
+  #error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.52, 0.4, 0.4)
+  #Sigma_col1 <- diag(error_col1^2)
+  #Sigma_col2 <- diag(error_col2^2)
+ # Sigma_col3 <- diag(error_col3^2)
+  #col1_data <- diffs_sub[, 1]
+  #col2_data <- diffs_sub[, 2]
+  #col3_data <- diffs_sub[, 3]
+  #ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
+  #ll_col2 <- mvtnorm::dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
+  #ll_col3 <- mvtnorm::dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
+  #lls11 <- sum(ll_col1, ll_col2, ll_col3)
 # 获取最后一行最后一列的值
   last_row_index <- nrow(diffs)
   last_value <- diffs[last_row_index, ncol(diffs)]
   lls12 <- stats::dnorm(last_value, sd = 90, log = TRUE)
-  lls <- c(lls11, lls12)
-  total_log_likelihood <- sum(lls)
+  #lls <- c(lls11, lls12)
+  #total_log_likelihood <- sum(lls)
 
 # 输出总对数似然
-  print(total_log_likelihood)
-  return(total_log_likelihood)
-    #print(diffs)
-    #Sigma <- diag(.cfs[(length(.iparms) + 1):length(.cfs)])
-    #Sigma <- diag(c(300, 40, 1.65))
-    #Sigma <- diag(c(300, 40, 1.65))
-    #print(Sigma)
-    #diffs_sub <- diffs[, 1:3]
-    #lls11 <- mvtnorm::dmvnorm(diffs_sub, sigma = Sigma, log = TRUE)
-    # 假设 diffs 是你计算后的矩阵
-    #last_row_index <- nrow(diffs)  # 获取最后一行的索引
-    #last_value <- diffs[last_row_index, ncol(diffs)]
-    #print(last_value)
-    #lls12 <- stats::dnorm(last_value, sd = 90, log = TRUE)
-    #lls = c(lls11, lls12)
-    #print(lls)
-    #
-    #library(mvtnorm)
+  print(lls12)
+  return(lls12)
+
   }
 }
 ## Create an environment to solve this problem?
