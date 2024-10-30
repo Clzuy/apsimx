@@ -603,20 +603,40 @@ log_lik <- function(.cfs){
           #print(par.val)
         }
       }
-
-    if(.replacement[i]){
-      pp0 <- strsplit(.parm.paths[i], ".", fixed = TRUE)[[1]]
-      mpp <- paste0(pp0[-length(pp0)], collapse = ".")
-      edit_apsimx_replacement(file = .file,
-                              src.dir = .src.dir,
-                              wrt.dir = .src.dir,
-                              node.string = mpp,
-                              overwrite = TRUE,
-                              parm = pp0[length(pp0)],
-                              value = par.val,
-                              root = .root,
-                              verbose = FALSE)
-    }else{
+    if (replacement[i]) {
+    # 检查是否包含 ".cult."
+    if (grepl("\\.cult\\.", parm.paths[i])) {
+        # 特殊处理含 ".cult." 的情况
+        split_point <- regexpr("\\.cult\\.", parm.paths[i])
+        mpp <- substr(parm.paths[i], 1, split_point - 1)       # 提取第一个部分
+        pp_last <- substr(parm.paths[i], split_point + 1, nchar(parm.paths[i]))  # 提取参数部分
+    } else {
+        # 正常处理其他情况
+        pp0 <- strsplit(parm.paths[i], ".", fixed = TRUE)[[1]]
+        mpp <- paste0(pp0[-length(pp0)], collapse = ".")
+        pp_last <- pp0[length(pp0)]  # 末尾参数名称
+    }
+    # 调用 edit_apsimx_replacement
+    edit_apsimx_replacement(file = file, src.dir = src.dir, 
+                            wrt.dir = src.dir, node.string = mpp, overwrite = TRUE, 
+                            parm = pp_last, value = par.val, 
+                            root = root, verbose = FALSE)
+}
+    #if(.replacement[i]){
+      #pp0 <- strsplit(.parm.paths[i], ".", fixed = TRUE)[[1]]
+      #mpp <- paste0(pp0[-length(pp0)], collapse = ".")
+      #edit_apsimx_replacement(file = .file,
+                              #src.dir = .src.dir,
+                              #wrt.dir = .src.dir,
+                              #node.string = mpp,
+                              #overwrite = TRUE,
+                              #parm = pp0[length(pp0)],
+                              #value = par.val,
+                              #root = .root,
+                              #verbose = FALSE)
+    #}
+  
+  else{
       edit_apsimx(file = .file,
                   src.dir = .src.dir,
                   wrt.dir = .src.dir,
