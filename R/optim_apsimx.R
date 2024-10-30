@@ -607,7 +607,7 @@ log_lik <- function(.cfs){
     # 检查是否包含 ".cult."
     if (grepl("\\.cult\\.", .parm.paths[i])) {
         # 特殊处理含 ".cult." 的情况
-        split_point <- regexpr("\\.cult\\.", parm.paths[i])
+        split_point <- regexpr("\\.cult\\.", .parm.paths[i])
         mpp <- substr(.parm.paths[i], 1, split_point - 1)       # 提取第一个部分
         pp_last <- substr(.parm.paths[i], split_point + 1, nchar(.parm.paths[i]))  # 提取参数部分
     } else {
