@@ -695,14 +695,11 @@ log_lik <- function(.cfs){
     ## However, they need to be in the exact same order
     sim.s <- sim.s[order(sim.s[, .index[1]], sim.s[ ,.index[2]]),]
     .data <- .data[order(.data[, .index[1]], .data[, .index[2]]),]
-
     if(!all(sim.s[[.index[1]]] == .data[[.index[1]]]))
       stop(paste("simulations and data for", .index[1], "do not match"))
-
     if(!all(sim.s[[.index[2]]] == .data[[.index[2]]]))
       stop(paste("simulations and data for", .index[2], "do not match"))
   }
-
   if(nrow(sim.s) == 0L){
     cat("number of rows in sim", nrow(sim),"\n")
     cat("number of rows in data", nrow(.data), "\n")
@@ -724,30 +721,29 @@ log_lik <- function(.cfs){
   }else{
   lls11 <- 0
   diffs_sub <- diffs[, 1:3]
-  error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
+  #error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
   error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
   error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.52, 0.4, 0.4)
-  Sigma_col1 <- diag(error_col1^2)
+  #Sigma_col1 <- diag(error_col1^2)
   Sigma_col2 <- diag(error_col2^2)
   Sigma_col3 <- diag(error_col3^2)
-  col1_data <- diffs_sub[, 1]
+  #col1_data <- diffs_sub[, 1]
   col2_data <- diffs_sub[, 2]
   col3_data <- diffs_sub[, 3]
-  ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
+  #ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
   ll_col2 <- mvtnorm::dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
   ll_col3 <- mvtnorm::dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
-  lls11 <- sum(ll_col1, ll_col2, ll_col3)
+  #lls11 <- sum(ll_col1, ll_col2, ll_col3)
+  lls11 <- sum(ll_col2, ll_col3)
 # 获取最后一行最后一列的值
-  last_row_index <- nrow(diffs)
-  last_value <- diffs[last_row_index, ncol(diffs)]
-  lls12 <- stats::dnorm(last_value, sd = 90, log = TRUE)
-  lls <- c(lls11, lls12)
-  total_log_likelihood <- sum(lls)
-
+  #last_row_index <- nrow(diffs)
+  #last_value <- diffs[last_row_index, ncol(diffs)]
+  #lls12 <- stats::dnorm(last_value, sd = 90, log = TRUE)
+  #lls <- c(lls11, lls12)
+  #total_log_likelihood <- sum(lls11)
 # 输出总对数似然
-  print(total_log_likelihood)
-  return(total_log_likelihood)
-
+  print(lls11)
+  return(lls11)
   }
 }
 ## Create an environment to solve this problem?
