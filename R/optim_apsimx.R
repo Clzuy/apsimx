@@ -723,7 +723,7 @@ log_lik <- function(.cfs){
   diffs_sub <- diffs[, 1:3]
 error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
 error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
-error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.52, 0.4)  # 移除最后一行数据对应的误差值
+error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.8, 0.4)  # 移除最后一行数据对应的误差值
 Sigma_col1 <- diag(error_col1^2)
 Sigma_col2 <- diag(error_col2^2)
 Sigma_col3 <- diag(error_col3^2)
