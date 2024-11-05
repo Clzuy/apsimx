@@ -720,37 +720,37 @@ log_lik <- function(.cfs){
     return(sum(lls))
   }else{
   lls11 <- 0
-  #diffs_sub <- diffs[, 1:3]
-#error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
-#error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
-#error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.8)  # 移除最后一行数据对应的误差值
-#Sigma_col1 <- diag(error_col1^2)
-#Sigma_col2 <- diag(error_col2^2)
-#Sigma_col3 <- diag(error_col3^2)
-#col1_data <- diffs_sub[, 1]
-#col2_data <- diffs_sub[, 2]
-#col3_data <- diffs_sub[-(nrow(diffs_sub) - 1), 3]  # 移除倒数第二行数据
-#col3_data <- diffs_sub[-c((nrow(diffs_sub) - 1), nrow(diffs_sub)), 3]  # 移除最后两行数据
-
-#ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
-#ll_col2 <- mvtnorm::dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
-#ll_col3 <- mvtnorm::dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
-
   diffs_sub <- diffs[, 1:3]
-  error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
-  error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
-  error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.52, 0.4, 0.4)
-  Sigma_col1 <- diag(error_col1^2)
-  Sigma_col2 <- diag(error_col2^2)
-  Sigma_col3 <- diag(error_col3^2)
-  col1_data <- diffs_sub[, 1]
-  col2_data <- diffs_sub[, 2]
-  col3_data <- diffs_sub[, 3]
-  ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
-  ll_col2 <- mvtnorm::dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
-  ll_col3 <- mvtnorm::dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
+error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
+error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
+error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.8)  # 移除最后一行数据对应的误差值
+Sigma_col1 <- diag(error_col1^2)
+Sigma_col2 <- diag(error_col2^2)
+Sigma_col3 <- diag(error_col3^2)
+col1_data <- diffs_sub[, 1]
+col2_data <- diffs_sub[, 2]
+#col3_data <- diffs_sub[-(nrow(diffs_sub) - 1), 3]  # 移除倒数第二行数据
+col3_data <- diffs_sub[-c((nrow(diffs_sub) - 1), nrow(diffs_sub)), 3]  # 移除最后两行数据
+
+ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
+ll_col2 <- mvtnorm::dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
+ll_col3 <- mvtnorm::dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
+
+  #diffs_sub <- diffs[, 1:3]
+  #error_col1 <- c(5, 30, 60, 251, 282, 385, 431)
+  #error_col2 <- c(0.06, 0.7, 2.1, 5.8, 7.9, 9.6, 10.6)
+  #error_col3 <- c(0.09, 0.23, 0.38, 0.57, 0.52, 0.4, 0.4)
+  #Sigma_col1 <- diag(error_col1^2)
+  #Sigma_col2 <- diag(error_col2^2)
+  #Sigma_col3 <- diag(error_col3^2)
+  #col1_data <- diffs_sub[, 1]
+  #col2_data <- diffs_sub[, 2]
+  #col3_data <- diffs_sub[, 3]
+  #ll_col1 <- mvtnorm::dmvnorm(col1_data, sigma = Sigma_col1, log = TRUE)
+  #ll_col2 <- mvtnorm::dmvnorm(col2_data, sigma = Sigma_col2, log = TRUE)
+  #ll_col3 <- mvtnorm::dmvnorm(col3_data, sigma = Sigma_col3, log = TRUE)
   lls11 <- sum(ll_col1, ll_col2, ll_col3)
-  #lls11 <- sum(ll_col2, ll_col3)
+
 # 获取最后一行最后一列的值
   last_row_index <- nrow(diffs)
   last_value <- diffs[last_row_index, ncol(diffs)]
