@@ -110,7 +110,12 @@ optim_apsimx <- function(file, src.dir = ".",
       return(NULL)
     }
   }
-
+  if(type == "sceua"){
+    if(!requireNamespace("ucminf", quietly = TRUE)){
+      warning("The sceua package is required for this method")
+      return(NULL)
+    }
+  }
   ## Data needs to be a data.frame
   if(!inherits(data, "data.frame"))
     stop("Object 'data' should be of class 'data.frame'.", call. = FALSE)
