@@ -62,7 +62,7 @@
 
 optim_apsimx <- function(file, src.dir = ".",
                          parm.paths, data,
-                         type = c("optim", "nloptr", "mcmc", "ucminf", "grid"),
+                         type = c("optim", "nloptr", "mcmc", "ucminf", "grid", "sceua"),
                          weights,
                          index = "Date",
                          parm.vector.index,
